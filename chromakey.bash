@@ -38,6 +38,7 @@ function wait_for_display {
 Xephyr :1 -screen $BACKGROUND_RES $XEPHYR_OPTS &
 BACKGROUND_XEPHYR_PID=$?
 wait_for_display :1
+DISPLAY=:1 metacity &
 ( DISPLAY=:1 $BACKGROUND_COMMAND ; kill $BACKGROUND_XEPHYR_PID ) &
 
 Xephyr :2 -screen $KEY_RES $XEPHYR_OPTS &
