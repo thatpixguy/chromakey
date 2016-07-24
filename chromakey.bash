@@ -11,19 +11,21 @@ MIX_RES="800x600"
 OUTPUT_RES="1024x768"
 OFFSET="+0+0"
 
-KEY_R=22
-KEY_G=41
-KEY_B=63
+KEY_R=0
+KEY_G=255
+KEY_B=0
 KEY_ANGLE=20
 
 BACKGROUND_GEOMETRY="${BACKGROUND_RES}${OFFSET}"
 KEY_GEOMETRY="${KEY_RES}${OFFSET}"
 
 #BACKGROUND_COMMAND="gst-launch-0.10 v4l2src ! videoscale method=0 ! video/x-raw-yuv, width=640 ! ffmpegcolorspace ! ximagesink"
-BACKGROUND_COMMAND="vlc -f --vout x11 $HOME/Downloads/2015-07-10_488202_512K-part.mp4"
+BACKGROUND_COMMAND="vlc --no-audio -f --vout x11 /tmp/2015-07-10_488202_512K-part.mp4"
+#BACKGROUND_COMMAND="vlc --no-audio -f --vout x11 $HOME/Downloads/2015-07-10_488202_512K-part.mp4"
 #BACKGROUND_COMMAND="mplayer -fs $HOME/Downloads/2015-07-10_488202_512K-part.mp4"
-#KEY_COMMAND="display -resize $KEY_RES -geometry $GEOMETRY colorwheel-rgb-640.png"
-KEY_COMMAND="toonloop -f --width 1280 --height 720"
+#KEY_COMMAND="display -resize $KEY_RES -geometry $KEY_GEOMETRY colorwheel-rgb-640.png"
+KEY_COMMAND="gm display -geometry $KEY_GEOMETRY colorwheel-rgb-640.png"
+#KEY_COMMAND="toonloop -f --width 1280 --height 720"
 
 #XEPHYR_OPTS="-screen ${INPUT_RES} -noreset -ac -br -nocursor -dumb -noxv -nodri"
 XEPHYR_OPTS="-noreset -ac -br -nocursor -dumb -noxv -nodri"
