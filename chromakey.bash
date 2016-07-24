@@ -49,8 +49,8 @@ wait_for_display :2
 ( 
   gst-launch-1.0 \
     videomixer name=mix background=black ! videoscale ! video/x-raw,width=${OUTPUT_RES%x*},height=${OUTPUT_RES#*x} ! videoconvert ! ximagesink sync=false \
-    ximagesrc use-damage=0 display-name=:1 show-pointer=0 ! videoscale ! video/x-raw,width=${MIX_RES%x*},height=${MIX_RES#*x} ! mix. \
     ximagesrc use-damage=0 display-name=:2 show-pointer=0 ! alpha method=custom target-r=$KEY_R target-g=$KEY_G target-b=$KEY_B angle=$KEY_ANGLE ! videoscale ! video/x-raw,width=${MIX_RES%x*},height=${MIX_RES#*x} ! mix. \
+    ximagesrc use-damage=0 display-name=:1 show-pointer=0 ! videoscale ! video/x-raw,width=${MIX_RES%x*},height=${MIX_RES#*x} ! mix. \
 
   kill $KEY_XEPHYR_PID $BACKGROUND_XEPHYR_PID
 ) &
