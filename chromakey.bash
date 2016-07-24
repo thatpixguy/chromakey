@@ -1,12 +1,9 @@
 #!/bin/bash
-#Xephyr :1 -reset -terminate & while ! xprop -display :1 -root ; do false ; done ; xterm
 
 
 BACKGROUND_RES="800x600"
 KEY_RES="640x480"
 
-# the larger of BACKGROUND_RES and KEY_RES
-MIX_RES="800x600"
 
 OUTPUT_RES="1024x768"
 OFFSET="+0+0"
@@ -16,20 +13,17 @@ KEY_G=255
 KEY_B=0
 KEY_ANGLE=20
 
+# the larger of BACKGROUND_RES and KEY_RES
+MIX_RES=$((${BACKGROUND_RES%x*}>${KEY_RES%x*}?${BACKGROUND_RES%x*}:${KEY_RES%x*}))x$((${BACKGROUND_RES#*x}>${KEY_RES#*x}?${BACKGROUND_RES#*x}:${KEY_RES#*x}))
+
 BACKGROUND_GEOMETRY="${BACKGROUND_RES}${OFFSET}"
 KEY_GEOMETRY="${KEY_RES}${OFFSET}"
 
-#BACKGROUND_COMMAND="gst-launch-0.10 v4l2src ! videoscale method=0 ! video/x-raw-yuv, width=640 ! ffmpegcolorspace ! ximagesink"
-BACKGROUND_COMMAND="vlc --no-audio -f --vout x11 /tmp/2015-07-10_488202_512K-part.mp4"
-#BACKGROUND_COMMAND="vlc --no-audio -f --vout x11 $HOME/Downloads/2015-07-10_488202_512K-part.mp4"
-#BACKGROUND_COMMAND="mplayer -fs $HOME/Downloads/2015-07-10_488202_512K-part.mp4"
-#KEY_COMMAND="display -resize $KEY_RES -geometry $KEY_GEOMETRY colorwheel-rgb-640.png"
-KEY_COMMAND="gm display -geometry $KEY_GEOMETRY colorwheel-rgb-640.png"
-#KEY_COMMAND="toonloop -f --width 1280 --height 720"
+BACKGROUND_COMMAND="vlc --no-audio -f --vout x11"
 
-#XEPHYR_OPTS="-screen ${INPUT_RES} -noreset -ac -br -nocursor -dumb -noxv -nodri"
+KEY_COMMAND="toonloop -f"
+
 XEPHYR_OPTS="-noreset -ac -br -nocursor -dumb -noxv -nodri"
-
 
 function wait_for_display {
  echo -n "Waiting for display $1"
@@ -47,6 +41,8 @@ Xephyr :2 -screen $KEY_RES $XEPHYR_OPTS &
 KEY_XEPHYR_PID=$?
 wait_for_display :2
 ( DISPLAY=:2 $KEY_COMMAND ; echo Key died. ; kill $KEY_XEPHYR_PID ) &
+
+
 
 ( 
   gst-launch-1.0 \
