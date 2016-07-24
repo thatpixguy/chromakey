@@ -39,12 +39,12 @@ Xephyr :1 -screen $BACKGROUND_RES $XEPHYR_OPTS &
 BACKGROUND_XEPHYR_PID=$?
 wait_for_display :1
 DISPLAY=:1 metacity &
-( DISPLAY=:1 $BACKGROUND_COMMAND ; kill $BACKGROUND_XEPHYR_PID ) &
+( DISPLAY=:1 $BACKGROUND_COMMAND ; echo Background died. ; kill $BACKGROUND_XEPHYR_PID ) &
 
 Xephyr :2 -screen $KEY_RES $XEPHYR_OPTS &
 KEY_XEPHYR_PID=$?
 wait_for_display :2
-( DISPLAY=:2 $KEY_COMMAND ; kill $KEY_XEPHYR_PID ) &
+( DISPLAY=:2 $KEY_COMMAND ; echo Key died. ; kill $KEY_XEPHYR_PID ) &
 
 ( 
   gst-launch-1.0 \
