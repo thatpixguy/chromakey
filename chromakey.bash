@@ -20,10 +20,10 @@ BACKGROUND_GEOMETRY="${BACKGROUND_RES}${OFFSET}"
 KEY_GEOMETRY="${KEY_RES}${OFFSET}"
 
 #BACKGROUND_COMMAND="gst-launch-0.10 v4l2src ! videoscale method=0 ! video/x-raw-yuv, width=640 ! ffmpegcolorspace ! ximagesink"
-BACKGROUND_COMMAND="vlc -f --vout x11 $HOME/Downloads/2015-07-10_488202_512K-part.mp4"
+BACKGROUND_COMMAND="vlc -f --vout x11"
 #BACKGROUND_COMMAND="mplayer -fs $HOME/Downloads/2015-07-10_488202_512K-part.mp4"
 #KEY_COMMAND="display -resize $KEY_RES -geometry $GEOMETRY colorwheel-rgb-640.png"
-KEY_COMMAND="toonloop -f --width 1280 --height 720"
+KEY_COMMAND="toonloop -f"
 
 #XEPHYR_OPTS="-screen ${INPUT_RES} -noreset -ac -br -nocursor -dumb -noxv -nodri"
 XEPHYR_OPTS="-noreset -ac -br -nocursor -dumb -noxv -nodri"
